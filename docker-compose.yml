@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    command: 'npm run dev'
+    container_name: agriculture-app
+    restart: on-failure
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    networks:
+      - agriculture-network
+
+  postgres:
+    image: postgres:9.4
+    container_name: agriculture-postgres
+    restart: always
+    tty: true
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=agriculture
+    ports:
+      - "5432:5432"
+    networks:
+      - agriculture-network
+
+networks:
+  agriculture-network:
+    driver: bridge

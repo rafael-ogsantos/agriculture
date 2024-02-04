@@ -7,19 +7,23 @@
     "start": "node dist/server.js",
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'node -r ts-node/register' src/server.ts",
     "build": "tsc",
-    "test": "jest --passWithNoTests --runInBand --no-cache",
+    "test": "NODE_ENV=test jest --runInBand",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
-    "test:integration": "npm test -- --watch -c jest-integration-config.js"
+    "test:integration": "NODE_ENV=test jest --watch -c jest-integration-config.js"
   },
   "author": "Rahul",
   "license": "ISC",
   "dependencies": {
+    "cpf_cnpj": "^0.2.0",
     "dockerize": "^0.1.0",
     "express": "^4.18.2",
+    "inversify": "^6.0.2",
     "knex": "^3.1.0",
     "knex-migrate": "^1.7.4",
     "mysql": "^2.18.1",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "reflect-metadata": "^0.2.1",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",

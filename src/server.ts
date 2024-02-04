@@ -1,6 +1,6 @@
 import express from 'express';
 
-import farmersRouter from './api/farmers/router';
+import producersRouter from './api/producers/router';
 
 const app = express();
 process.on('uncaughtException', function (err) {
@@ -9,7 +9,7 @@ process.on('uncaughtException', function (err) {
 
 app.use(express.json());
 
-app.use('/vehicles', farmersRouter);
+app.use('/api/producers', producersRouter);
 
 const PORT = 3000;
 

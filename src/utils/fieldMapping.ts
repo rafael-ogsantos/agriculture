@@ -28,3 +28,28 @@ export function toDbFormat(input: any, fieldMapping: any): any {
     }
     return output;
 }
+
+export function toCamelCase(obj: any) {
+    if (Array.isArray(obj)) {
+      return obj.map(item => toCamelCase(item));
+    }
+  
+    const newObj: any = {};
+    const keyMap: { [key: string]: string } = {
+      cpf_or_cnpj: 'cpfOrCnpj',
+      producer_name: 'name',
+      farm_name: 'farm',
+      total_area_hectares: 'totalArea',
+      arable_area_hectares: 'arableArea',
+      vegetation_area_hectares: 'vegetationArea',
+    };
+  
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        const newKey = keyMap[key] || key;
+        newObj[newKey] = obj[key];
+      }
+    }
+  
+    return newObj;
+  }

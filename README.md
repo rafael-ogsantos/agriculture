@@ -10,7 +10,7 @@
 - Clone o repositório
 - Execute o comando `docker-compose up -d`
 - Faça as migrações do banco de dados com o comando `knex migrate:latest`
-- Acesse a API em `http://localhost:3000/api/producers`
+- Acesse a API em `http://localhost:3001/api/producers`
 
 ## Para executar os testes, siga os passos abaixo:
 ### Testes de integração

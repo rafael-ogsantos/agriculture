@@ -2,7 +2,7 @@ const knexfile = {
   development: {
     client: 'postgres',
     connection: {
-      host: 'localhost',
+      host: 'postgres',
       user: 'postgres',
       password: 'root',
       database: 'agriculture',

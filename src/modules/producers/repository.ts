@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import { fieldMapping, toDbFormat } from "../../utils/fieldMapping";
+import { fieldMapping, toCamelCase, toDbFormat } from "../../utils/fieldMapping";
 import RepositoryInterface from "./interfaces/repository";
 import { Producer, ProducerInput } from "./schema";
 
@@ -17,7 +17,7 @@ export default class Repository implements RepositoryInterface {
         const producerInDbFormat = toDbFormat(producer, fieldMapping);
         const [createdProducer] = await this.knex('producers').insert(producerInDbFormat).returning('*');
     
-        return createdProducer as Producer;
+        return toCamelCase(createdProducer) as unknown  as Producer;
     }
 
     public async update(id: number, producer: ProducerInput): Promise<Producer> {
@@ -30,19 +30,22 @@ export default class Repository implements RepositoryInterface {
         const producerInDbFormat = toDbFormat(producer, fieldMapping);
         const [updatedProducer] = await this.knex('producers').where('id', id).update(producerInDbFormat).returning('*');
     
-        return updatedProducer;
+        return toCamelCase(updatedProducer) as unknown  as Producer;
     }
 
     public async findAll(): Promise<Producer[]> {
         const producers = await this.knex('producers');
     
-        return producers;
+        return toCamelCase(producers) as unknown as Producer[];
     }
 
     public async findById(id: number): Promise<Producer | null> {
         const producer = await this.knex('producers').where('id', id).first();
+        if (!producer) {
+            throw new Error('Producer not found');;
+        }
     
-        return producer;
+        return toCamelCase(producer) as unknown as Producer;
     }
 
     public async delete(id: number): Promise<void> {

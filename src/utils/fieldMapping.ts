@@ -52,4 +52,17 @@ export function toCamelCase(obj: any) {
     }
   
     return newObj;
-  }
+}
+
+export const producerWithNumbers = (producer) => {
+   if (Array.isArray(producer)) {
+        return producer.map(producerWithNumbers);       
+   }
+
+   return {
+        ...producer,
+        totalArea: Number(producer.total_area_hectares),
+        arableArea: Number(producer.arable_area_hectares),
+        vegetationArea: Number(producer.vegetation_area_hectares),
+   }
+};

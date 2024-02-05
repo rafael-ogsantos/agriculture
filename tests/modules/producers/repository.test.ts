@@ -35,7 +35,7 @@ describe('ProducersRepository', () => {
         const producerCreated = await repository.create(producerCreationMock);
 
         expect(producerCreated).toHaveProperty('id');
-        expect(producerCreated).toHaveProperty('cpf_or_cnpj', producerCreationMock.cpfOrCnpj);
+        expect(producerCreated).toHaveProperty('cpfOrCnpj', producerCreationMock.cpfOrCnpj);
     });
 
     it('should not create a producer with the same cpf_or_cnpj', async () => {
@@ -53,7 +53,7 @@ describe('ProducersRepository', () => {
         const producerUpdated = await repository.update(producerCreated.id, { ...producerCreationMock, name: 'Updated Name' });
 
         expect(producerUpdated).toHaveProperty('id', producerCreated.id);
-        expect(producerUpdated).toHaveProperty('producer_name', 'Updated Name');
+        expect(producerUpdated).toHaveProperty('name', 'Updated Name');
     });
 
     it('should not update a producer that does not exist', async () => {

@@ -25,11 +25,18 @@ export default class Service {
     }
 
     async update(id: number, producer: Producer): Promise<Producer> {
+        
+        let existingProducer = await this.producerRepository.findById(id);
         if (producer.cpfOrCnpj) {
             const existingProducer = await this.producerRepository.findByCpfOrCnpj(producer.cpfOrCnpj);
             if (existingProducer && existingProducer.id !== id) {
                 throw new Error('A producer with this CPF or CNPJ already exists');
             }
+        }
+        
+        const updatedProducer = { ...existingProducer, ...producer } as unknown as ProducerInput;
+        for (const validation of this.validations) {
+            validation.validate(updatedProducer);
         }
 
         return this.producerRepository.update(id, producer);

@@ -8,6 +8,7 @@ const knex = Knex(config);
 
 // Adicionando logs de erro de consulta
 knex.on('query-error', (error, obj) => {
+  console.error(error, );
 });
 
 export default knex;
